@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Catalog.Microservice.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/v1/[controller]")]
     public class CatalogsController : ControllerBase
     {
         private static readonly string[] Summaries = new[]

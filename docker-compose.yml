@@ -1,0 +1,36 @@
+version: '3.4'
+
+services:
+  catalog.microservice:
+    image: ${DOCKER_REGISTRY-}catalogmicroservice
+    build:
+      context: .
+      dockerfile: Catalog.Microservice/Dockerfile
+
+  customer.microservice:
+    image: ${DOCKER_REGISTRY-}customermicroservice
+    build:
+      context: .
+      dockerfile: Customer.Microservice/Dockerfile
+
+
+  delivery.microservice:
+    image: ${DOCKER_REGISTRY-}deliverymicroservice
+    build:
+      context: .
+      dockerfile: Delivery.Microservice/Dockerfile
+
+
+  order.microservice:
+    image: ${DOCKER_REGISTRY-}ordermicroservice
+    build:
+      context: .
+      dockerfile: Order.Microservice/Dockerfile
+
+
+  gateway.api:
+    image: ${DOCKER_REGISTRY-}gatewayapi
+    build:
+      context: .
+      dockerfile: Gateway.Api/Dockerfile
+

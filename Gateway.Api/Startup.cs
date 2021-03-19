@@ -1,3 +1,4 @@
+using Gateway.Api.Middelwares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,6 +31,7 @@ namespace Gateway.Api
             {
                 endpoints.MapControllers();
             });
+            app.UseMiddleware<RequestResponseLoggingMiddleware>();
             await app.UseOcelot();
         }
     }
