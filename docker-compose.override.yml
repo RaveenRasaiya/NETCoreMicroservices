@@ -2,51 +2,56 @@ version: '3.4'
 
 services:
   catalog.microservice:
+    container_name: catalogmicroservice
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_ENVIRONMENT=Development      
     ports:
-      - "80"
-      - "443"
+      - "8001:80"      
     volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets
+      - ${HOME}/.aspnet/https:/root/.aspnet/https/
+
   customer.microservice:
+    container_name: customermicroservice
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+        - ASPNETCORE_ENVIRONMENT=Development      
     ports:
-      - "80"
-      - "443"
+        - "8002:80"      
     volumes:
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+        - ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets
+        - ${HOME}/.aspnet/https:/root/.aspnet/https/
 
   delivery.microservice:
+    container_name: deliverymicroservice
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+        - ASPNETCORE_ENVIRONMENT=Development      
     ports:
-      - "80"
-      - "443"
+        - "8003:80"      
     volumes:
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+        - ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets
+        - ${HOME}/.aspnet/https:/root/.aspnet/https/
 
   order.microservice:
+    container_name: ordermicroservice
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+        - ASPNETCORE_ENVIRONMENT=Development      
     ports:
-      - "80"
-      - "443"
+        - "8004:80"      
     volumes:
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+        - ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets
+        - ${HOME}/.aspnet/https:/root/.aspnet/https/
 
   gateway.api:
+    container_name: gatewayapi
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+        - ASPNETCORE_ENVIRONMENT=Development     
+    depends_on :
+        - catalog.microservice
+        - customer.microservice
+        - delivery.microservice
+        - order.microservice
     ports:
-      - "80"
-      - "443"
+        - "7001:80"    
     volumes:
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+        - ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets
+        - ${HOME}/.aspnet/https:/root/.aspnet/https/

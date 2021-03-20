@@ -48,7 +48,7 @@ namespace Customer.Microservice
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Customer API V1");
             });
 
-            app.UseHttpsRedirection();
+     //       app.UseHttpsRedirection();
 
             app.UseRouting();
 

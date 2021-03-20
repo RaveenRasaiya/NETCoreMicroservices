@@ -46,7 +46,7 @@ namespace Delivery.Microservice
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Delivery API V1");
             });
 
-            app.UseHttpsRedirection();
+  //          app.UseHttpsRedirection();
 
             app.UseRouting();
 
