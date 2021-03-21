@@ -1,12 +1,34 @@
 version: '3.4'
 
 services:
+
+  redis:
+    container_name: redisCache
+    image: redis:6-alpine
+    expose:
+      - "6379"
+    ports:
+      - "6379:6379"
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: redisCommander
+    environment:
+      - REDIS_HOSTS=redis
+    ports:
+      - "8013:8081"
+    depends_on:
+      - redis
+
   catalog.microservice:
     container_name: catalogmicroservice
     environment:
       - ASPNETCORE_ENVIRONMENT=Development      
     ports:
-      - "8001:80"      
+      - "8001:80"     
+    depends_on:
+      - elasticsearch      
+      - kibana
+      - redis
     volumes:
       - ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets
       - ${HOME}/.aspnet/https:/root/.aspnet/https/

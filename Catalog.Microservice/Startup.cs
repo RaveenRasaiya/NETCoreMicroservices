@@ -1,15 +1,8 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Catalog.Microservice
 {
@@ -25,7 +18,11 @@ namespace Catalog.Microservice
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = "redis:6379";
+                options.InstanceName = "Api.Microservice";
+            });
             services.AddControllers();
             services.AddSwaggerGen();
         }
@@ -45,10 +42,10 @@ namespace Catalog.Microservice
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Catatlog API V1");            
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Catatlog API V1");
             });
 
-      //      app.UseHttpsRedirection();
+            //      app.UseHttpsRedirection();
 
             app.UseRouting();
 
