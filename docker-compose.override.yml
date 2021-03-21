@@ -50,6 +50,8 @@ services:
         - customer.microservice
         - delivery.microservice
         - order.microservice
+        - elasticsearch
+        - kibana
     ports:
         - "7001:80"    
     volumes:

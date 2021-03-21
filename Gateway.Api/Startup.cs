@@ -33,7 +33,7 @@ namespace Gateway.Api
             {
                 endpoints.MapControllers();
             });
-
+            app.UseMiddleware<RequestResponseLoggingMiddleware>();
             await app.UseOcelot();
         }
     }
